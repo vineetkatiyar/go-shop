@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { Product } from "@/types";
 
-export const PrductCard = ({ product }: { product: any}) => {
+export const PrductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="p-0 items-center">
         <CardTitle>
-          <Link href={`/products/${product.slug}`}>
+          <Link href={`/product/${product.slug}`}>
             <Image
               src={product.images[0]}
               alt={product.name}
