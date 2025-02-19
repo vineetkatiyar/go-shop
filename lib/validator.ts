@@ -20,3 +20,8 @@ export const insterProductSchema = z.object({
   banner: z.string().nullable(),
   price: currency,
 });
+
+export const userSignInSchema = z.object({
+  email: z.string().email("valid email address"),
+  password: z.string().min(6, "password must be at least 6 characters"),
+});
