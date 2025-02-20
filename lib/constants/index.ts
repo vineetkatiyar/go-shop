@@ -8,3 +8,10 @@ export const signInDefaultVlaue = {
   email: "",
   password: "",
 };
+
+export const signUpDefaultVlaue = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};

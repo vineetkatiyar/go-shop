@@ -1,16 +1,16 @@
 "use client";
 
 import { useActionState } from "react";
-import { signInAction } from "@/actions/user.actions";
+import { signUpAction } from "@/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInDefaultVlaue } from "@/lib/constants";
+import { signUpDefaultVlaue } from "@/lib/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export function SignInForm() {
-  const [state, formAction, isPending] = useActionState(signInAction, {
+export function SignUpForm() {
+  const [state, formAction, isPending] = useActionState(signUpAction, {
     success: false,
     message: "",
   });
@@ -23,28 +23,54 @@ export function SignInForm() {
       <div className="space-y-6">
         <div className="space-y-6">
           <div>
+            <Label htmlFor="name" className="space-y-6">
+               Name
+              <Input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="john"
+                defaultValue={signUpDefaultVlaue.name}
+                autoComplete="name"
+              />
+            </Label>
+          </div>
+          <div>
             <Label htmlFor="email" className="space-y-6">
-              Email
+               Email
               <Input
                 id="email"
                 type="email"
                 name="email"
                 placeholder="example@gmail.com"
-                defaultValue={signInDefaultVlaue.email}
+                defaultValue={signUpDefaultVlaue.email}
                 autoComplete="email"
-                required
               />
             </Label>
           </div>
           <div>
             <Label htmlFor="password">
-              Password
+               Password
               <Input
                 id="password"
                 type="password"
                 name="password"
                 placeholder="*******"
-                defaultValue={signInDefaultVlaue.password}
+                defaultValue={signUpDefaultVlaue.password}
+                autoComplete="password"
+                required
+              />
+            </Label>
+          </div>
+          <div>
+            <Label htmlFor="confirmPassword">
+               confirm-password
+              <Input
+                id="confirmPassword"
+                type="password"
+                name="confirmPassword"
+                placeholder="*******"
+                defaultValue={signUpDefaultVlaue.password}
                 autoComplete="password"
                 required
               />
@@ -53,7 +79,7 @@ export function SignInForm() {
         </div>
         <div>
           <Button className="w-full" variant="default">
-            {isPending ? "Signing-in..." : "sign-in"}
+            {isPending ? "Signing-up..." : "sign-up"}
           </Button>
         </div>
 
@@ -62,9 +88,9 @@ export function SignInForm() {
         )}
 
         <div className="text-sm text-center text-muted-foreground">
-          Don&apos;t have an account? 
-          <Link href="/sign-up" target="_self" className="link">
-             Sign Up
+          already have an account?
+          <Link href="/sign-in" target="_self" className="link">
+            Sign In
           </Link>
         </div>
       </div>
