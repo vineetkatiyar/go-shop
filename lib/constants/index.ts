@@ -15,3 +15,11 @@ export const signUpDefaultVlaue = {
   password: "",
   confirmPassword: "",
 };
+
+export const shippingAddressDefaultVlaue = {
+  fullName: "",
+  streetAddress: "",
+  city: "",
+  postalCode: "",
+  country: "",
+};

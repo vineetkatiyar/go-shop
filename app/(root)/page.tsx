@@ -1,7 +1,10 @@
 import { ProductList } from "@/components/shared/product/product-list";
-import { getLatestProducts } from "@/actions/product.actions";
+import { getLatestProducts } from "@/lib/actions/product.actions";
 
 const HomePage = async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
   const latestProduct = await getLatestProducts();
   return (
     <div>
