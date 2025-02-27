@@ -1,4 +1,4 @@
-import { PrductCard } from "@/components/shared/product/product-card";
+import ProductCard from "./product-card";
 import { Product } from "@/types";
 
 export function ProductList({
@@ -18,7 +18,7 @@ export function ProductList({
       {data.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {limitedData.map((product: Product) => (
-            <PrductCard product={product} key={product.slug} />
+            <ProductCard product={product} key={product.slug} />
           ))}
         </div>
       ) : (

@@ -5,7 +5,7 @@ import { CartItem } from "@/types";
 import { convertToPlainObject, formatError, round2 } from "@/lib/utils";
 import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
-import { CartSchema, insterCartSchema } from "@/lib/validator";
+import { cartItemSchema, insertCartSchema } from "@/lib/validator";
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 
@@ -40,7 +40,7 @@ export async function addItemToCart(data: CartItem) {
     const cart = await getMyCart();
 
     // Parse and validate item
-    const item = CartSchema.parse(data);
+    const item = cartItemSchema.parse(data);
 
     // Find product in database
     const product = await prisma.product.findFirst({
@@ -50,7 +50,7 @@ export async function addItemToCart(data: CartItem) {
 
     if (!cart) {
       // Create new cart object
-      const newCart = insterCartSchema.parse({
+      const newCart = insertCartSchema.parse({
         userId: userId,
         items: [item],
         sessionCartId: sessionCartId,

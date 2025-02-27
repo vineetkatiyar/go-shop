@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { signInAction } from "@/lib/actions/user.actions";
+import { signInWithCredentials } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export function SignInForm() {
-  const [state, formAction, isPending] = useActionState(signInAction, {
+  const [state, formAction, isPending] = useActionState(signInWithCredentials, {
     success: false,
     message: "",
   });
@@ -62,9 +62,9 @@ export function SignInForm() {
         )}
 
         <div className="text-sm text-center text-muted-foreground">
-          Don&apos;t have an account? 
+          Don&apos;t have an account?
           <Link href="/sign-up" target="_self" className="link">
-             Sign Up
+            Sign Up
           </Link>
         </div>
       </div>

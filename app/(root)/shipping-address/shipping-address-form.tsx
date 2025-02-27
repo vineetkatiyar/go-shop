@@ -148,11 +148,11 @@ export function AddressForm({ address }: { address: ShippingAddress }) {
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
                 control={form.control}
-                name="postleCode"
+                name="postalCode"
                 render={({
                   field,
                 }: {
-                  field: ControllerRenderProps<ShippingAddress, "postleCode">;
+                  field: ControllerRenderProps<ShippingAddress, "postalCode">;
                 }) => (
                   <FormItem className="w-full">
                     <FormLabel>Postal Code</FormLabel>
