@@ -56,7 +56,6 @@ export const config = {
     }),
   ],
   callbacks: {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, user, trigger, token }: any) {
       //set the user id from the token
 
@@ -71,7 +70,6 @@ export const config = {
       }
       return session;
     },
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
     async jwt({ token, user, trigger, session }: any) {
       //assign user fields to token
       if (user) {
@@ -120,7 +118,6 @@ export const config = {
 
       return token;
     },
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
     authorized({ request, auth }: any) {
       // Array of regex patterns of paths we want to protect
       const protectedPaths = [
