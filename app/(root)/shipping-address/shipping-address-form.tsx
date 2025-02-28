@@ -103,28 +103,7 @@ export function AddressForm({ address }: { address: ShippingAddress }) {
               />
             </div>
 
-            <div className="flex flex-col md:flex-row gap-5">
-              <FormField
-                control={form.control}
-                name="streetAddress"
-                render={({
-                  field,
-                }: {
-                  field: ControllerRenderProps<
-                    ShippingAddress,
-                    "streetAddress"
-                  >;
-                }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter address" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+
 
             <div className="flex flex-col md:flex-row gap-5">
               <FormField

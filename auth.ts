@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "./db/prisma";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compareSync } from "bcrypt-ts-edge";
-import { cookies } from "next/headers";
-import { authConfig } from "./auth.config";
+import NextAuth from 'next-auth';
+import { authConfig } from './auth.config';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from '@/db/prisma';
+import { cookies } from 'next/headers';
+import { compare } from './lib/encrypt';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const config = {
   pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
+    signIn: '/sign-in',
+    error: '/sign-in',
   },
   session: {
-    strategy: "jwt",
+    strategy: 'jwt' as const,
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       credentials: {
-        email: { type: "email" },
-        password: { type: "password" },
+        email: { type: 'email' },
+        password: { type: 'password' },
       },
       async authorize(credentials) {
         if (credentials == null) return null;
@@ -35,7 +35,7 @@ export const config = {
 
         // Check if user exists and if the password matches
         if (user && user.password) {
-          const isMatch = compareSync(
+          const isMatch = await compare(
             credentials.password as string,
             user.password
           );
@@ -58,38 +58,38 @@ export const config = {
   callbacks: {
     ...authConfig.callbacks,
     async session({ session, user, trigger, token }: any) {
-      //set the user id from the token
-
+      // Set the user ID from the token
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
 
-      // console.log(token);
-      //check if the user update anything
-      if (trigger === "update") {
+      // If there is an update, set the user name
+      if (trigger === 'update') {
         session.user.name = user.name;
       }
+
       return session;
     },
     async jwt({ token, user, trigger, session }: any) {
-      //assign user fields to token
+      // Assign user fields to token
       if (user) {
+        token.id = user.id;
         token.role = user.role;
 
-        //if user has no name, then use email
-        if (user.name === "NO_NAME") {
-          token.name = user.email!.split("@")[0];
+        // If user has no name then use the email
+        if (user.name === 'NO_NAME') {
+          token.name = user.email!.split('@')[0];
 
-          //update the database to reflect the token
+          // Update database to reflect the token name
           await prisma.user.update({
             where: { id: user.id },
             data: { name: token.name },
           });
         }
 
-        if (trigger === "signIn" || trigger === "signUp") {
+        if (trigger === 'signIn' || trigger === 'signUp') {
           const cookiesObject = await cookies();
-          const sessionCartId = cookiesObject.get("sessionCartId")?.value;
+          const sessionCartId = cookiesObject.get('sessionCartId')?.value;
 
           if (sessionCartId) {
             const sessionCart = await prisma.cart.findFirst({
@@ -113,7 +113,7 @@ export const config = {
       }
 
       // Handle session updates
-      if (session?.user.name && trigger === "update") {
+      if (session?.user.name && trigger === 'update') {
         token.name = session.user.name;
       }
 
@@ -122,4 +122,4 @@ export const config = {
   },
 };
 
-export const { handlers, signIn, signOut, auth } = NextAuth(config);
+export const { handlers, auth, signIn, signOut } = NextAuth(config);

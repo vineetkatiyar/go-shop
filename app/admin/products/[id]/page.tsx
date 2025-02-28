@@ -1,4 +1,4 @@
-import { ProductForm } from "@/components/admin/product-form";
+import ProductForm from "@/components/admin/product-form";
 import { getProductById } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 

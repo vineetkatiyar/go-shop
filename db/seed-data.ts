@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import sampleData from './sample-data';
-import { hash } from '@/lib/encrypt';
+import { PrismaClient } from "@prisma/client";
+import sampleData from "./sample-data";
+import { hash } from "@/lib/encrypt";
 
 async function main() {
   const prisma = new PrismaClient();
@@ -22,9 +22,10 @@ async function main() {
       await hash(sampleData.users[i].password)
     );
   }
+
   await prisma.user.createMany({ data: users });
 
-  console.log('Database seeded successfully!');
+  console.log("Database seeded successfully!");
 }
 
 main();
