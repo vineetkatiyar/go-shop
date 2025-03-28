@@ -32,7 +32,7 @@ export default async function AdminProductsPage(props: {
     query: searchText,
     category,
   });
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="space-y-2">

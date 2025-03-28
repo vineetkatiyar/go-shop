@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/shared/header";
 
+
 export default function Layout({
   children,
 }: Readonly<{
